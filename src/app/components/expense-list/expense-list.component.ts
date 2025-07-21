@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ExpenseService } from '../../services/expense.service';
 import { Expense } from '../../models/expense.model';
 import { ExpenseEditModalComponent } from "../expense-edit-modal/expense-edit-modal.component";
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-expense-list',
   standalone: true,
-  imports: [CommonModule, ExpenseEditModalComponent],
+  imports: [CommonModule, RouterModule, ExpenseEditModalComponent],
   templateUrl: './expense-list.component.html',
   styleUrls: ['./expense-list.component.scss'],
 })
