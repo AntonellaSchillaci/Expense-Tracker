@@ -1,44 +1,51 @@
-import { Injectable } from "@angular/core";
-import { Expense } from "../models/expense.model";
+import { Injectable } from '@angular/core';
+import { Expense } from '../models/expense.model';
 
-
-@Injectable ({
-    providedIn: 'root',
+@Injectable({
+  providedIn: 'root',
 })
 export class ExpenseService {
-    private readonly STORAGE_KEY = 'expenses';
-    private expenses: Expense[] = [];
+  private readonly STORAGE_KEY = 'expenses';
+  private expenses: Expense[] = [];
 
-    constructor() {
-        this.loadFromStorage();
-    }
+  constructor() {
+    this.loadFromStorage();
+  }
 
-    private loadFromStorage() : void {
-        const data = localStorage.getItem(this.STORAGE_KEY);
-        if(data) {
-            this.expenses = JSON.parse(data);
-        }
-    }
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+  }
 
-    private saveToStorage() : void {
-        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.expenses));
+  private loadFromStorage(): void {
+    if (this.isBrowser()) {
+      const data = localStorage.getItem(this.STORAGE_KEY);
+      if (data) {
+        this.expenses = JSON.parse(data);
+      }
     }
+  }
 
-    getExpenses() : Expense[] {
-        return [...this.expenses];
+  private saveToStorage(): void {
+    if (this.isBrowser()) {
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.expenses));
     }
+  }
 
-    addExpense(expense: Expense) : void {
-        this.expenses.push(expense);
-        this.saveToStorage();
-    }
+  getExpenses(): Expense[] {
+    return [...this.expenses];
+  }
 
-    removeExpense(id: number) : void {
-        this.expenses = this.expenses.filter (e => e.id !== id);
-        this.saveToStorage();
-    }
-    getTotalAmount() : number {
-        return this.expenses.reduce((sum, e) => sum + e.amount, 0);
-    }
+  addExpense(expense: Expense): void {
+    this.expenses.push(expense);
+    this.saveToStorage();
+  }
 
+  removeExpense(id: number): void {
+    this.expenses = this.expenses.filter(e => e.id !== id);
+    this.saveToStorage();
+  }
+
+  getTotalAmount(): number {
+    return this.expenses.reduce((sum, e) => sum + e.amount, 0);
+  }
 }
