@@ -1,0 +1,17 @@
+<div class="expense-total-container fade-in">
+  <h2 class="expense-total-title">
+    <i class="fas fa-wallet"></i> Totale spese
+  </h2>
+
+  <p class="expense-total-overall">
+    <i class="fas fa-calculator icon"></i>
+    <strong class="label">Complessivo:</strong>
+    <span class="amount">€ {{ totalAmount.toFixed(2) }}</span>
+  </p>
+
+  <p class="expense-total-month">
+    <i class="fas fa-calendar-alt icon"></i>
+    <strong class="label">Mese corrente:</strong>
+    <span class="amount">€ {{ currentMonthTotal.toFixed(2) }}</span>
+  </p>
+</div>

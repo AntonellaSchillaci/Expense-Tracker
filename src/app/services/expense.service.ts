@@ -51,13 +51,13 @@ export class ExpenseService {
   }
 
   removeExpense(id: number): void {
-    this.expenses = this.expenses.filter(e => e.id !== id);
+    this.expenses = this.expenses.filter((e) => e.id !== id);
     this.saveToStorage();
     this.updateExpensesSubject();
   }
 
   updateExpense(updatedExpense: Expense): void {
-    const index = this.expenses.findIndex(e => e.id === updatedExpense.id);
+    const index = this.expenses.findIndex((e) => e.id === updatedExpense.id);
     if (index !== -1) {
       this.expenses[index] = updatedExpense;
       this.saveToStorage();
@@ -67,5 +67,14 @@ export class ExpenseService {
 
   getTotalAmount(): number {
     return this.expenses.reduce((sum, e) => sum + e.amount, 0);
+  }
+
+  getTotalAmountForMonth(year: number, month: number): number {
+    return this.expenses
+      .filter((e) => {
+        const d = new Date(e.date);
+        return d.getFullYear() === year && d.getMonth() === month;
+      })
+      .reduce((sum, e) => sum + e.amount, 0);
   }
 }
