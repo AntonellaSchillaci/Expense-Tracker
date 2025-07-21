@@ -1,1 +1,63 @@
-<div class="title">Expense Form</div>
+<form [formGroup]="expenseForm" (ngSubmit)="onSubmit()" class="expense-form">
+    <div class="expense-form__group">
+      <label for="title" class="expense-form__label">Titolo</label>
+      <input
+        type="text"
+        id="title"
+        formControlName="title"
+        class="expense-form__input"
+        placeholder="Es. Supermercato"
+      />
+      <div class="expense-form__error" *ngIf="expenseForm.get('title')?.invalid && expenseForm.get('title')?.touched">
+        Il titolo è obbligatorio
+      </div>
+    </div>
+  
+    <div class="expense-form__group">
+      <label for="amount" class="expense-form__label">Importo (€)</label>
+      <input
+        type="number"
+        id="amount"
+        formControlName="amount"
+        class="expense-form__input"
+        placeholder="Es. 25.50"
+        min="0.01"
+        step="0.01"
+      />
+      <div class="expense-form__error" *ngIf="expenseForm.get('amount')?.invalid && expenseForm.get('amount')?.touched">
+        Inserisci un importo valido
+      </div>
+    </div>
+  
+    <div class="expense-form__group">
+      <label for="category" class="expense-form__label">Categoria</label>
+      <input
+        type="text"
+        id="category"
+        formControlName="category"
+        class="expense-form__input"
+        placeholder="Es. Cibo, Trasporti, Bollette"
+      />
+      <div class="expense-form__error" *ngIf="expenseForm.get('category')?.invalid && expenseForm.get('category')?.touched">
+        La categoria è obbligatoria
+      </div>
+    </div>
+  
+    <div class="expense-form__group">
+      <label for="date" class="expense-form__label">Data</label>
+      <input
+        type="date"
+        id="date"
+        formControlName="date"
+        class="expense-form__input"
+      />
+      <div class="expense-form__error" *ngIf="expenseForm.get('date')?.invalid && expenseForm.get('date')?.touched">
+        Seleziona una data
+      </div>
+    </div>
+  
+    <button type="submit" [disabled]="expenseForm.invalid" class="expense-form__submit">
+      Aggiungi spesa
+    </button>
+  </form>
+  
