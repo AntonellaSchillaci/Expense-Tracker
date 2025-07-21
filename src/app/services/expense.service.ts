@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Expense } from '../models/expense.model';
 
 @Injectable({
@@ -7,6 +8,8 @@ import { Expense } from '../models/expense.model';
 export class ExpenseService {
   private readonly STORAGE_KEY = 'expenses';
   private expenses: Expense[] = [];
+
+  private expensesSubject = new BehaviorSubject<Expense[]>([]);
 
   constructor() {
     this.loadFromStorage();
@@ -19,9 +22,8 @@ export class ExpenseService {
   private loadFromStorage(): void {
     if (this.isBrowser()) {
       const data = localStorage.getItem(this.STORAGE_KEY);
-      if (data) {
-        this.expenses = JSON.parse(data);
-      }
+      this.expenses = data ? JSON.parse(data) : [];
+      this.updateExpensesSubject();
     }
   }
 
@@ -31,18 +33,36 @@ export class ExpenseService {
     }
   }
 
-  getExpenses(): Expense[] {
-    return [...this.expenses];
+  private updateExpensesSubject(): void {
+    const sorted = [...this.expenses].sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
+    this.expensesSubject.next(sorted);
+  }
+
+  getExpenses(): Observable<Expense[]> {
+    return this.expensesSubject.asObservable();
   }
 
   addExpense(expense: Expense): void {
     this.expenses.push(expense);
     this.saveToStorage();
+    this.updateExpensesSubject();
   }
 
   removeExpense(id: number): void {
     this.expenses = this.expenses.filter(e => e.id !== id);
     this.saveToStorage();
+    this.updateExpensesSubject();
+  }
+
+  updateExpense(updatedExpense: Expense): void {
+    const index = this.expenses.findIndex(e => e.id === updatedExpense.id);
+    if (index !== -1) {
+      this.expenses[index] = updatedExpense;
+      this.saveToStorage();
+      this.updateExpensesSubject();
+    }
   }
 
   getTotalAmount(): number {

@@ -1,0 +1,101 @@
+@use 'sass:color';
+@use '../../../styles/variables' as *;
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($color-dark, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000; 
+}
+
+.modal-content {
+  background-color: $color-white;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  font-family: $font-stack;
+  color: $color-dark;
+  border: 2px solid $color-border;
+
+  h2 {
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    color: $color-primary;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+
+    label {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      display: block;
+      color: $color-dark;
+    }
+
+    input, select {
+      padding: 0.6rem 0.75rem;
+      border: 1.5px solid $color-border;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: $font-stack;
+      color: $color-dark;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+      &:focus {
+        border-color: $color-primary;
+        outline: none;
+        box-shadow: 0 0 8px color.adjust($color-primary, $lightness: -20%);
+      }
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      margin-top: 1.5rem;
+
+      button {
+        padding: 0.6rem 1.4rem;
+        font-weight: 600;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-family: $font-stack;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: background-color 0.3s ease;
+
+        &.cancel {
+          background-color: $color-light;
+          color: $color-dark;
+
+          &:hover {
+            background-color: color.scale($color-light, $lightness: 15%);
+          }
+        }
+
+        &.save {
+          background-color: $color-primary;
+          color: $color-white;
+
+          &:hover {
+            background-color: color.scale($color-primary, $lightness: -12%);
+          }
+        }
+      }
+    }
+  }
+}
