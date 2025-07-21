@@ -1,0 +1,50 @@
+<div class="expense-list">
+  <div class="header">
+    <h1 class="expense-list-title">Lista delle Spese</h1>
+    <button class="dashboard-button" aria-label="Vai alla Dashboard">
+      <i class="fa-solid fa-chart-simple icon"></i>
+      <span>Dashboard</span>
+    </button>
+  </div>
+
+  <div class="expense-list-items">
+    <div class="expense-item" tabindex="0" *ngFor="let expense of expenses">
+      <div class="expense-left">
+        <span class="expense-icon" [ngClass]="getIconClass(expense.category)"></span>
+        <span class="expense-title">{{ expense.title }}</span>
+        <span class="expense-category">{{ expense.category }}</span>
+        <span class="expense-date">{{ expense.date | date: 'dd/MM/yyyy' }}</span>
+        <span class="expense-amount">€ {{ expense.amount }}</span>
+      </div>
+
+      <div class="expense-actions">
+        <button
+          class="btn-edit"
+          (click)="editExpense(expense)"
+          title="Modifica spesa"
+          aria-label="Modifica spesa"
+        >
+          <i class="fas fa-edit"></i>
+        </button>
+        <button
+          class="btn-delete"
+          (click)="deleteExpense(expense.id)"
+          title="Elimina spesa"
+          aria-label="Elimina spesa"
+        >
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="total-amount" *ngIf="expenses.length > 0">
+    <strong>Totale: </strong>€ {{ totalAmount }}
+  </div>
+</div>
+
+<app-expense-edit-modal
+  *ngIf="selectedExpense"
+  [expense]="selectedExpense"
+  (save)="onExpenseSaved($event)"
+  (cancel)="onExpenseEditCancelled()"
+></app-expense-edit-modal>
