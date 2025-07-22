@@ -1,0 +1,30 @@
+<div class="expense-category-summary fade-in">
+  <h3><i class="fa-solid fa-list"></i> Spese per Categoria</h3>
+
+  <div *ngIf="categories.length > 0; else noData">
+    <div class="category-row" *ngFor="let category of categories">
+
+      <span class="category-name">
+        <span class="category-icon">
+          <i [class]="getCategoryIcon(category)"></i>
+        </span>
+        {{ category }}
+      </span>
+
+      <div class="bar-container">
+        <div
+          class="bar"
+          [style.width.%]="(getAmount(category) / totalExpenses()) * 100"
+        ></div>
+      </div>
+
+      <span class="category-amount">
+        € {{ getAmount(category) | number: '1.2-2' }}
+      </span>
+    </div>
+  </div>
+
+  <ng-template #noData>
+    <p>Nessuna spesa disponibile.</p>
+  </ng-template>
+</div>
