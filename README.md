@@ -1,59 +1,30 @@
-# ExpenseTracker
+# Gestione Spese Personali
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.3.
+App Angular per tenere traccia delle spese personali, visualizzandole per categoria con grafici a barre e icone rappresentative.
 
-## Development server
+## Descrizione
 
-To start a local development server, run:
+Questa applicazione permette di inserire e monitorare le spese suddivise per categorie (es. cibo, affitto, trasporti, ecc.).  
+Visualizza un riepilogo delle spese per categoria, con barre di progresso e icone che facilitano l’interpretazione visiva.
 
-```bash
-ng serve
-```
+## Funzionalità principali
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Inserimento e gestione delle spese con categoria e importo  
+- Riepilogo spese per categoria con percentuali calcolate dinamicamente  
+- Icone personalizzate per ogni categoria di spesa  
+- Interfaccia responsive e design pulito basato su variabili SCSS  
 
-## Code scaffolding
+## Tecnologie
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Angular (standalone components)  
+- TypeScript  
+- SCSS con variabili e mixin personalizzati  
+- FontAwesome per le icone   
 
-```bash
-ng generate component component-name
-```
+## Come usare
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. Clona il repository  
+2. Esegui `npm install` per installare le dipendenze  
+3. Avvia l’app con `ng serve`  
+4. Aggiungi spese tramite il componente di inserimento (da implementare o integrare)  
+5. Visualizza il riepilogo spese per categoria nel componente dedicato  
