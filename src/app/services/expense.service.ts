@@ -7,12 +7,17 @@ import { Expense } from '../models/expense.model';
 })
 export class ExpenseService {
   private readonly STORAGE_KEY = 'expenses';
+  private readonly BUDGET_KEY = 'budget';
+
   private expenses: Expense[] = [];
+  private budgetValue: number = 1000;
 
   private expensesSubject = new BehaviorSubject<Expense[]>([]);
+  private budgetSubject = new BehaviorSubject<number>(this.budgetValue);
 
   constructor() {
     this.loadFromStorage();
+    this.loadBudgetFromStorage();
   }
 
   private isBrowser(): boolean {
@@ -38,6 +43,30 @@ export class ExpenseService {
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
     this.expensesSubject.next(sorted);
+  }
+
+  private loadBudgetFromStorage(): void {
+    if (this.isBrowser()) {
+      const savedBudget = localStorage.getItem(this.BUDGET_KEY);
+      this.budgetValue = savedBudget ? Number(savedBudget) : 1000;
+      this.budgetSubject.next(this.budgetValue);
+    }
+  }
+
+  private saveBudgetToStorage(): void {
+    if (this.isBrowser()) {
+      localStorage.setItem(this.BUDGET_KEY, this.budgetValue.toString());
+    }
+  }
+
+  setBudget(amount: number): void {
+    this.budgetValue = amount;
+    this.budgetSubject.next(this.budgetValue);
+    this.saveBudgetToStorage();
+  }
+
+  getBudget(): Observable<number> {
+    return this.budgetSubject.asObservable();
   }
 
   getExpenses(): Observable<Expense[]> {

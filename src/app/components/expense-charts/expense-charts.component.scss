@@ -1,0 +1,141 @@
+@use '../../../styles/variables' as *;
+@use 'sass:color';
+
+.expense-charts {
+  max-width: 400px;
+  margin: auto;
+  padding: 1rem;
+  border: 1px solid $color-border;
+  border-radius: 8px;
+  background-color: $color-light;
+  color: $color-dark;
+  font-family: $font-stack;
+
+  h2 {
+      display: flex;
+      align-items: center;
+      color: $color-primary;
+      margin-bottom: 1rem;
+      font-weight: 700;
+
+      .chart-icon {
+        margin-right: 0.5rem;
+        color: $color-primary;
+        font-size: 1.5rem;
+      }
+    }
+
+  .budget-info {
+    p {
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
+      display: flex;
+      align-items: center;
+
+      .icon {
+        margin-right: 0.5rem;
+        font-size: 1.3rem;
+        min-width: 22px;
+        text-align: center;
+      }
+    }
+
+    .budget-total {
+      color: $color-dark;
+      font-weight: 600;
+
+      .icon {
+        color: $color-dark;
+      }
+    }
+
+    .total-expenses {
+      color: $color-secondary;
+      font-weight: 600;
+
+      .icon {
+        color: $color-secondary;
+      }
+    }
+
+    .remaining-budget {
+      font-weight: 600;
+
+      &.negative {
+        color: $color-danger;
+
+        .icon {
+          color: $color-danger;
+        }
+      }
+
+      &.positive {
+        color: $color-success;
+
+        .icon {
+          color: $color-success;
+        }
+      }
+
+      .icon-arrow {
+        margin-left: 0.3rem;
+      }
+    }
+  }
+
+  .actions {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .add-budget-form {
+      display: flex;
+      gap: 0.5rem;
+
+      input {
+        flex: 1;
+        padding: 0.4rem;
+        border: 1px solid $color-border;
+        border-radius: 4px;
+        font-size: 1rem;
+      }
+
+      button {
+        padding: 0.4rem 0.8rem;
+        background-color: $color-primary;
+        border: none;
+        color: $color-white;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: color.scale($color-primary, $lightness: -20%);
+        }
+      }
+    }
+
+    .confirmation-message {
+      color: $color-success;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-in-out;
+}
