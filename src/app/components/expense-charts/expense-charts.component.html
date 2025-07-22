@@ -1,1 +1,46 @@
-<p>expense-charts works!</p>
+<div class="expense-charts fade-in">
+  <h2>
+    <i class="fa-solid fa-chart-simple chart-icon"></i>
+    Dashboard Spese
+  </h2>
+
+  <div class="budget-info">
+    <p class="budget-total">
+      <i class="fa-solid fa-wallet icon"></i>
+      Budget totale: € {{ budget() | number: '1.2-2' }}
+    </p>
+    <p class="total-expenses">
+      <i class="fa-solid fa-credit-card icon"></i>
+      Spese totali: € {{ getTotalExpenses() | number: '1.2-2' }}
+    </p>
+   <p
+  class="remaining-budget"
+  [class.negative]="remainingBudget() < 0"
+  [class.positive]="remainingBudget() >= 0"
+>
+  <i class="fa-solid fa-piggy-bank icon"></i>
+  <span>Budget rimanente: € {{ remainingBudget() | number: '1.2-2' }}</span>
+  <i
+    class="fa-solid icon icon-arrow"
+    [class.fa-arrow-down]="remainingBudget() < 0"
+    [class.fa-arrow-up]="remainingBudget() >= 0"
+  ></i>
+</p>
+
+  </div>
+
+  <div class="actions">
+    <div class="add-budget-form">
+      <input
+        type="number"
+        min="0"
+        [(ngModel)]="newBudgetAmount"
+        placeholder="Aggiungi o togli budget"
+      />
+      <button (click)="addBudget()">Aggiorna Budget</button>
+    </div>
+    <p *ngIf="showConfirmation" class="confirmation-message fade-in">
+      Budget aggiornato con successo!
+    </p>
+  </div>
+</div>
