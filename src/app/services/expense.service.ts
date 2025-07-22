@@ -106,4 +106,11 @@ export class ExpenseService {
       })
       .reduce((sum, e) => sum + e.amount, 0);
   }
+
+  getTotalByCategory(): { [category: string]: number } {
+    return this.expenses.reduce((acc, expense) => {
+      acc[expense.category] = (acc[expense.category] || 0) + expense.amount;
+      return acc;
+    }, {} as { [category: string]: number });
+  }
 }
