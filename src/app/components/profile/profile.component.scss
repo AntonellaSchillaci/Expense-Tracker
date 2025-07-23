@@ -1,0 +1,28 @@
+@use '../../../styles/variables' as *;
+
+.profile-container {
+  padding: 2rem;
+  background-color: $color-light;
+  color: $color-dark;
+  font-family: $font-stack;
+
+  h2 {
+    color: $color-primary;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .coming-soon {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: $color-white;
+    border-left: 4px solid $color-secondary;
+    font-style: italic;
+    color: $color-dark;
+    border: 1px solid $color-border;
+  }
+}

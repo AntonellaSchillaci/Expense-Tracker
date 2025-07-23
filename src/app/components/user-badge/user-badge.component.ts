@@ -34,6 +34,11 @@ export class UserBadgeComponent {
     });
   }
 
+  onCompleteProfile() {
+    this.isMenuOpen.set(false);
+    this.router.navigate(['/profile']);
+  }
+
   getRandomColor(): string {
     const colors = [
       '#f44336',
