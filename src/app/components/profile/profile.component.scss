@@ -84,6 +84,25 @@
       }
     }
   }
+
+    .preview-image {
+      margin-top: 1rem;
+      text-align: center;
+
+      img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 0 5px rgba($color-dark, 0.2);
+      }
+
+      p {
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+        color: $color-primary;
+      }
+    }
 }
 
 .btn-back {

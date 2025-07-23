@@ -1,6 +1,7 @@
 <div class="user-badge-container" (click)="toggleMenu()">
   <div class="user-badge" [ngStyle]="{ 'background-color': bgColor }">
-    {{ initial() }}
+    <img *ngIf="photoURL()" [src]="photoURL()" alt="Avatar" />
+    <span *ngIf="!photoURL()">{{ initial() }}</span>
   </div>
 
   <div class="dropdown-menu" [class.show]="isMenuOpen()">
