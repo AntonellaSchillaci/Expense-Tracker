@@ -2,7 +2,6 @@ import { Injectable, inject } from '@angular/core';
 import {
   Auth,
   authState,
-  signInAnonymously,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
@@ -32,10 +31,6 @@ export class AuthService {
 
   get uid(): string | null {
     return this.userSignal()?.uid ?? null;
-  }
-
-  loginAnonymously(): Promise<void> {
-    return signInAnonymously(this.auth).then();
   }
 
   login(email: string, password: string): Promise<void> {
