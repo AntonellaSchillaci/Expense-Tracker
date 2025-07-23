@@ -1,0 +1,19 @@
+<div class="auth-container">
+  <h2>{{ isLogin ? 'Accedi' : 'Registrati' }}</h2>
+
+  <form (ngSubmit)="submit()">
+    <label for="email">Email:</label>
+    <input type="email" [(ngModel)]="email" name="email" id="email" placeholder="Inserisci email" required />
+
+    <label for="password">Password:</label>
+    <input type="password" [(ngModel)]="password" name="password" id="password" placeholder="Inserisci password" required />
+
+    <button class= "submit" type="submit">{{ isLogin ? 'Login' : 'Crea account' }}</button>
+  </form>
+
+  <button class="toggle" (click)="toggleMode()">
+    {{ isLogin ? 'Non hai un account? Registrati' : 'Hai già un account? Accedi' }}
+  </button>
+
+  <p class="error" *ngIf="error">{{ error }}</p>
+</div>
