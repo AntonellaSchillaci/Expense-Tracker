@@ -1,11 +1,12 @@
-<app-user-badge></app-user-badge>
+<div class="user-badge-wrapper">
+  <app-user-badge></app-user-badge>
+</div>
 
 <button (click)="goBack()" class="btn-back">
-   <i class="fa-solid fa-circle-left"></i>
-   Torna indietro
+  <i class="fa-solid fa-circle-left"></i>
+  Torna indietro
 </button>
 
 <app-expense-total></app-expense-total>
 <app-expense-charts></app-expense-charts>
 <app-expense-category-summary [expenses]="expenses()" />
-

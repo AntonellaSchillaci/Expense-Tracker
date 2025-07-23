@@ -1,3 +1,14 @@
-<div class="user-badge" [style.background-color]="bgColor">
-  {{ initial() }}
+<div class="user-badge-container" (click)="toggleMenu()">
+  <div
+    class="user-badge"
+    [ngStyle]="{ 'background-color': bgColor }"
+  >
+    {{ initial() }}
+  </div>
+
+  <div class="dropdown-menu" *ngIf="isMenuOpen()">
+    <p class="email">{{ user()?.email }}</p>
+    <hr />
+    <button (click)="logout()">Logout</button>
+  </div>
 </div>
