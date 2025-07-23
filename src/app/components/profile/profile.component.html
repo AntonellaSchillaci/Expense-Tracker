@@ -46,6 +46,19 @@
         [(ngModel)]="bio"
       ></textarea>
     </label>
+    <label>
+      Immagine profilo:
+      <select [(ngModel)]="selectedImage" name="photoURL">
+        <option value="">-- Seleziona un'immagine --</option>
+        <option *ngFor="let img of imageOptions" [value]="img">
+          {{ img.split('/').pop()?.replace('.png', '') }}
+        </option>
+      </select>
+    </label>
+    <div class="preview-image" *ngIf="selectedImage">
+      <p>Anteprima:</p>
+      <img [src]="selectedImage" alt="Immagine selezionata" />
+    </div>
 
     <button class="btn-save" type="submit" [disabled]="profileForm.invalid">
       Salva

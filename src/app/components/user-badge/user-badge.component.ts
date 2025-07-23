@@ -1,7 +1,20 @@
-import { Component, computed, HostListener, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  HostListener,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import {
+  Firestore,
+  doc,
+  getDoc,
+  DocumentSnapshot,
+  DocumentData,
+} from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-user-badge',
@@ -10,18 +23,36 @@ import { Router } from '@angular/router';
   templateUrl: './user-badge.component.html',
   styleUrls: ['./user-badge.component.scss'],
 })
-export class UserBadgeComponent {
+export class UserBadgeComponent implements OnInit {
   user;
   initial;
   bgColor: string;
   isMenuOpen = signal(false);
+  photoURL = signal<string | null>(null); // 👈 immagine profilo
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private firestore: Firestore
+  ) {
     this.user = this.authService.user;
     this.initial = computed(
       () => this.user()?.email?.charAt(0).toUpperCase() ?? '?'
     );
     this.bgColor = this.getRandomColor();
+  }
+
+  ngOnInit(): void {
+    const uid = this.user()?.uid;
+    if (!uid) return;
+
+    const profileRef = doc(this.firestore, `profiles/${uid}`);
+    getDoc(profileRef).then((snap: DocumentSnapshot<DocumentData>) => {
+      if (snap.exists()) {
+        const data = snap.data();
+        this.photoURL.set(data?.['photoURL'] ?? null);
+      }
+    });
   }
 
   toggleMenu(): void {
@@ -34,7 +65,7 @@ export class UserBadgeComponent {
     });
   }
 
-  onCompleteProfile() {
+  onCompleteProfile(): void {
     this.isMenuOpen.set(false);
     this.router.navigate(['/profile']);
   }

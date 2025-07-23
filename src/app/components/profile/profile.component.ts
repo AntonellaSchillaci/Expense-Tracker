@@ -23,6 +23,15 @@ export class ProfileComponent implements OnInit {
   user = computed(() => this.authService.user());
   email = computed(() => this.user()?.email ?? 'Nessuna email');
 
+  imageOptions = [
+    '../../../assets/images/image1.jpeg',
+    '../../../assets/images/image2.jpeg',
+    '../../../assets/images/image3.jpeg',
+    '../../../assets/images/image4.jpeg',
+    '../../../assets/images/image5.jpeg',
+  ];
+  selectedImage: string = '';
+
   nome: string = '';
   username: string = '';
   bio: string = '';
@@ -44,6 +53,10 @@ export class ProfileComponent implements OnInit {
     this.location.back();
   }
 
+  selectImage(img: string): void {
+    this.selectedImage = img;
+  }
+
   async saveProfile(): Promise<void> {
     const uid = this.user()?.uid;
     if (!uid) return;
@@ -54,6 +67,7 @@ export class ProfileComponent implements OnInit {
       nome: this.nome,
       username: this.username,
       bio: this.bio,
+      photoURL: this.selectedImage || '',
       updatedAt: new Date(),
     };
 
@@ -82,6 +96,7 @@ export class ProfileComponent implements OnInit {
         this.nome = data?.['nome'] ?? '';
         this.username = data?.['username'] ?? '';
         this.bio = data?.['bio'] ?? '';
+        this.selectedImage = data?.['photoURL'] ?? '';
       }
     } catch (error) {
       console.error('Errore caricamento profilo:', error);
