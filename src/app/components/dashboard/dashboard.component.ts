@@ -6,6 +6,7 @@ import { ExpenseChartsComponent } from '../expense-charts/expense-charts.compone
 import { ExpenseCategorySummaryComponent } from '../expense-category-summary/expense-category-summary.component';
 import { ExpenseService } from '../../services/expense.service';
 import { Expense } from '../../models/expense.model';
+import { UserBadgeComponent } from '../user-badge/user-badge.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +15,7 @@ import { Expense } from '../../models/expense.model';
     ExpenseTotalComponent,
     ExpenseChartsComponent,
     ExpenseCategorySummaryComponent,
+    UserBadgeComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',

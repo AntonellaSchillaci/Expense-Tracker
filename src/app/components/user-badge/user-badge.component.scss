@@ -1,0 +1,17 @@
+@use '../../../styles/variables' as *;
+@use 'sass:color';
+
+.user-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: $color-light;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
