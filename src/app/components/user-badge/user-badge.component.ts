@@ -1,6 +1,7 @@
-import { Component, computed } from '@angular/core';
+import { Component, computed, HostListener, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-badge',
@@ -13,8 +14,9 @@ export class UserBadgeComponent {
   user;
   initial;
   bgColor: string;
+  isMenuOpen = signal(false);
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     this.user = this.authService.user;
     this.initial = computed(
       () => this.user()?.email?.charAt(0).toUpperCase() ?? '?'
@@ -22,26 +24,43 @@ export class UserBadgeComponent {
     this.bgColor = this.getRandomColor();
   }
 
-  getRandomColor() : string {
-    const colors = [
-      '#f44336', // red
-      '#e91e63', // pink
-      '#9c27b0', // purple
-      '#673ab7', // deep purple
-      '#3f51b5', // indigo
-      '#2196f3', // blue
-      '#03a9f4', // light blue
-      '#00bcd4', // cyan
-      '#009688', // teal
-      '#4caf50', // green
-      '#8bc34a', // light green
-      '#cddc39', // lime
-      '#ffeb3b', // yellow
-      '#ffc107', // amber
-      '#ff9800', // orange
-      '#ff5722', // deep orange
-    ];
+  toggleMenu(): void {
+    this.isMenuOpen.set(!this.isMenuOpen());
+  }
 
+  logout(): void {
+    this.authService.logout().then(() => {
+      this.router.navigate(['/auth']);
+    });
+  }
+
+  getRandomColor(): string {
+    const colors = [
+      '#f44336',
+      '#e91e63',
+      '#9c27b0',
+      '#673ab7',
+      '#3f51b5',
+      '#2196f3',
+      '#03a9f4',
+      '#00bcd4',
+      '#009688',
+      '#4caf50',
+      '#8bc34a',
+      '#cddc39',
+      '#ffeb3b',
+      '#ffc107',
+      '#ff9800',
+      '#ff5722',
+    ];
     return colors[Math.floor(Math.random() * colors.length)];
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.user-badge-container')) {
+      this.isMenuOpen.set(false);
+    }
   }
 }
