@@ -1,6 +1,61 @@
-<div class="profile-container">
-  <h2>Ciao {{ email() }} 👋</h2>
-  <p>Qui potrai completare il tuo profilo personale.</p>
+<button class="btn-back" (click)="goBack()">
+  <i class="fa-solid fa-circle-left"></i> Torna indietro
+</button>
 
-  <div class="coming-soon">Sezione in costruzione 🛠️</div>
+<div class="profile-container">
+  <h2>
+    <span>Ciao</span> {{ email() }} 👋🏼
+  </h2>
+  <p>Qui puoi completare il tuo profilo personale.</p>
+
+  <form #profileForm="ngForm" (ngSubmit)="saveProfile()">
+    <label>
+      Nome:
+      <input
+        type="text"
+        name="nome"
+        required
+        [(ngModel)]="nome"
+        #nomeField="ngModel"
+        [class.invalid]="nomeField.invalid && nomeField.touched"
+      />
+      <div class="error" *ngIf="nomeField.invalid && nomeField.touched">
+        Il nome è obbligatorio
+      </div>
+    </label>
+
+    <label>
+      Username:
+      <input
+        type="text"
+        name="username"
+        required
+        [(ngModel)]="username"
+        #usernameField="ngModel"
+        [class.invalid]="usernameField.invalid && usernameField.touched"
+      />
+      <div class="error" *ngIf="usernameField.invalid && usernameField.touched">
+        L'username è obbligatorio
+      </div>
+    </label>
+
+    <label>
+      Bio:
+      <textarea
+        name="bio"
+        [(ngModel)]="bio"
+      ></textarea>
+    </label>
+
+    <button class="btn-save" type="submit" [disabled]="profileForm.invalid">
+      Salva
+    </button>
+  </form>
+  <div class="alert success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="alert error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
 </div>

@@ -3,7 +3,7 @@
     {{ initial() }}
   </div>
 
-  <div class="dropdown-menu" *ngIf="isMenuOpen()">
+  <div class="dropdown-menu" [class.show]="isMenuOpen()">
     <div class="email">{{ user()?.email }}</div>
     <button (click)="onCompleteProfile()">Completa profilo</button>
     <button (click)="logout()">Logout</button>
